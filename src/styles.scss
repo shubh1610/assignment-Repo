@@ -1,0 +1,68 @@
+body {
+    padding: 20px;
+    display: flex;
+
+
+      #app {
+        border-radius: 4px;
+        padding: 0;
+        width: 20rem;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  
+    
+        .card {
+          width: 250px;
+         
+        }
+    
+        #circle-avatar {
+          display: grid;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          background-color: #ffbd30;
+          place-items: center;
+    
+          span {
+            font-size: 48px;
+            font-weight: bold;
+          }
+        }
+      }
+    
+  
+
+    #blog {
+      overflow: hidden;
+      .add-blog-button{
+        display: flex;
+        margin-top: 40px;
+      }
+    }
+  }
+
+  #right-content{
+    float:right;
+    margin-left: 50rem;
+}
+
+
+  #add-blog {
+  
+    .add-blog-text{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 600;
+      font-size: 28px;
+    }
+  }
+
+  
+
+
+
+  
