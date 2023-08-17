@@ -1,40 +1,39 @@
-import { useEffect,useContext,useRef, useState } from "react";
+import { useEffect, useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext, serverUrl } from "./context";
-import Cookies from 'universal-cookie';
 import axios from "axios";
-const cookies = new Cookies();
 
 export const Callback = () => {
-    const called = useRef(false);
-    const [test, setTest]=useState(false);
-    const { checkLoginState, loggedIn } = useContext(AuthContext);
-    const navigate = useNavigate();
-    useEffect(() => {
-        if(test){
+  const called = useRef(false);
+  const [test, setTest] = useState(false);
+  const { checkLoginState, loggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (test) {
       (async () => {
         if (loggedIn === false) {
           try {
             called.current = true;
-            const res =await axios.get(`${serverUrl}/auth/token${window.location.search}`,{
-              withCredentials:true
-            })
-            console.log('response: ', res);
-            cookies.set('token', res.data)
+            const res = await axios.get(
+              `${serverUrl}/auth/token${window.location.search}`,
+              {
+                withCredentials: true,
+              }
+            );
+
             checkLoginState();
-            navigate('/');
+            navigate("/");
           } catch (err) {
-            console.error(err,'err');
-            navigate('/');
+            console.error(err, "err");
+            navigate("/");
           }
         } else if (loggedIn === true) {
-          navigate('/');
+          navigate("/");
         }
       })();
+    } else {
+      setTest(true);
     }
-    else{
-        setTest(true);
-    }
-    }, [navigate,test])
-    return <></>
-  };
+  }, [navigate, test]);
+  return <></>;
+};

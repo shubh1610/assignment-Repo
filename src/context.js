@@ -1,7 +1,5 @@
-import { createContext, useState, useCallback, useEffect } from "react";
+import { createContext, useState } from "react";
 import axios from "axios";
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
 
 export const AuthContext = createContext();
 export const serverUrl = "https://zany-jade-panther-fez.cyclic.cloud";
@@ -31,7 +29,7 @@ export const AuthContextProvider = ({ children }) => {
         .then((res) => setBlogs(res.data))
         .catch((err) => console.log(err));
     } catch (err) {
-      console.error(err);
+      console.log(err);
     }
   };
   const logOut = () => {

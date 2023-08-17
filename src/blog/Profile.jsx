@@ -1,23 +1,24 @@
 import "../styles.scss";
 import { PopupMenu } from "react-simple-widgets";
-import { AuthContext , serverUrl} from "../context";
+import { AuthContext, serverUrl } from "../context";
 import { useContext } from "react";
 import axios from "axios";
 
-
-
 export default function Profile() {
-
-  const { loggedIn, logOut, setGetProfileBlog, user, getUserPost } = useContext(AuthContext);
+  const { loggedIn, logOut, setGetProfileBlog, user, getUserPost } =
+    useContext(AuthContext);
   const handleLogin = () => {
-    axios.get(serverUrl + '/auth/google/url')
-      .then(res => window.location.assign(res.data))
-      .catch(err => console.log(err, "Error"))
-  }
+    axios
+      .get(serverUrl + "/auth/google/url")
+      .then((res) => window.location.assign(res.data))
+      .catch((err) => console.log(err, "Error"));
+  };
   return (
     <div id="app">
       <div className="text-end">
-        {!loggedIn ? <button onClick={handleLogin}>Login</button> :
+        {!loggedIn ? (
+          <button onClick={handleLogin}>Login</button>
+        ) : (
           <PopupMenu>
             <button className="btn btn-primary">
               <small>My Profile</small>
@@ -41,9 +42,7 @@ export default function Profile() {
                   ROLES
                 </p>
                 <p style={{ fontSize: 12 }}>
-                  {["Author", "Blog-Writer"].join(
-                    ", "
-                  )}
+                  {["Author", "Blog-Writer"].join(", ")}
                 </p>
 
                 <hr className="mb-0" style={{ margin: "0 -24px 0" }} />
@@ -52,9 +51,13 @@ export default function Profile() {
                   className="list-group list-group-flush"
                   style={{ margin: "0 -24px 0" }}
                 >
-                  <button className="list-group-item list-group-item-action px-4" onClick={() => {
-                    setGetProfileBlog(true); getUserPost();
-                  }}>
+                  <button
+                    className="list-group-item list-group-item-action px-4"
+                    onClick={() => {
+                      setGetProfileBlog(true);
+                      getUserPost();
+                    }}
+                  >
                     <small>My Blogs</small>
                   </button>
                 </div>
@@ -62,14 +65,19 @@ export default function Profile() {
                 <hr style={{ margin: "0 -24px 24px" }} />
 
                 <div className="d-grid">
-                  <button className="btn btn-secondary" onClick={() => { logOut() }}>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => {
+                      logOut();
+                    }}
+                  >
                     <small>Logout</small>
                   </button>
                 </div>
               </div>
             </div>
           </PopupMenu>
-        }
+        )}
       </div>
     </div>
   );
