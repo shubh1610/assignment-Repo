@@ -14,7 +14,7 @@ export const Callback = () => {
         if (loggedIn === false) {
           try {
             called.current = true;
-            const res = await axios.get(
+            await axios.get(
               `${serverUrl}/auth/token${window.location.search}`,
               {
                 withCredentials: true,
