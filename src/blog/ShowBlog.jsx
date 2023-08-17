@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import "./showBlog.scss";
-import { AuthContext } from "../context";
+import { AuthContext , serverUrl} from "../context";
 import { Button} from 'react-bootstrap'; 
 
 export const ShowBlog = () => {
@@ -15,19 +15,19 @@ export const ShowBlog = () => {
     let { id } = useParams();
     const [blogId,setblogId] = useState(id);
     const [comments,setComments] = useState([]);
-    const blogContent = blogs.filter((blog) => blog['_id']===blogId)[0];
+    const blogContent = blogs?.filter((blog) => blog['_id']===blogId)[0];
     const onSubmit = () => {
-        const author = user.email
-        const authorName = user.name;
+        const author = user?.email
+        const authorName = user?.name;
         const newComment = {blogId, author,authorName,  blogComment}
-        axios.post("http://localhost:8080/comment/addComment",newComment)
+        axios.post(`${serverUrl}/comment/addComment`,newComment)
             .then(res=>{
                 setComments(res.data)})
             .catch(err=>console.log(err,"err"))
     
         };
     useEffect(()=>{
-        axios.get("http://localhost:8080/comment/getComments",{params:{id:blogId}})
+        axios.get(`${serverUrl}/comment/getComments`,{params:{id:blogId}})
         .then(res=>{setComments(res.data)})
         .catch(err=>console.log(err,'err'))
     },[])    
@@ -48,7 +48,7 @@ export const ShowBlog = () => {
         </div>
         <div className="addComment-form">
         <div id="circle-avatar" className="text-center mb-4 ">
-                    <span>{user.name[0]}</span>
+                    <span>{user?.name[0]}</span>
                     </div>
         <form onSubmit={handleSubmit(onSubmit)}>
         <div className="addComment-input">
@@ -64,7 +64,7 @@ export const ShowBlog = () => {
                 {comments.map((comment) => {
                     return <div className="comment-section">
                     <div id="circle-avatar" className="text-center mb-4">
-                    <span>{user.name[0]}</span>
+                    <span>{user?.name[0]}</span>
                     </div>
                     <div className="comment-content">{comment?.Comment}</div> 
                   </div>

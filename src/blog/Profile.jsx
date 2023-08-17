@@ -1,17 +1,16 @@
 import "../styles.scss";
 import { PopupMenu } from "react-simple-widgets";
-import { AuthContext } from "../context";
+import { AuthContext , serverUrl} from "../context";
 import { useContext } from "react";
-
 import axios from "axios";
 
-const serverUrl = "http://localhost:8080/"
+
 
 export default function Profile() {
 
   const { loggedIn, logOut, setGetProfileBlog, user, getUserPost } = useContext(AuthContext);
   const handleLogin = () => {
-    axios.get(serverUrl + 'auth/google/url')
+    axios.get(serverUrl + '/auth/google/url')
       .then(res => window.location.assign(res.data))
       .catch(err => console.log(err, "Error"))
   }

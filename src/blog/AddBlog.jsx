@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate} from 'react-router-dom';
 import axios from "axios";
 import "../form.scss";
-import { AuthContext } from "../context";
+import { AuthContext, serverUrl } from "../context";
 export const AddBlog = () => {
   const { user } = useContext(AuthContext);
     const { register, watch, handleSubmit } = useForm();
@@ -15,7 +15,7 @@ export const AddBlog = () => {
         const author = user.email;
         const authorName= user.name;
         const newData = {title, author,authorName,  content}
-        axios.post("http://localhost:8080/addblog",newData)
+        axios.post(`${serverUrl}/addblog`,newData)
         .then(res=>console.log(res,'ress'))
         .catch(err=>console.log(err,"err"))
         navigate('/');

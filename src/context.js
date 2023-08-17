@@ -4,17 +4,18 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 export const AuthContext = createContext();
+export const serverUrl ="https://zany-jade-panther-fez.cyclic.cloud:8080";
 
 export const AuthContextProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [getProfileBlog, setGetProfileBlog] = useState(false);
   const [user, setUser] = useState();
   const [blogs, setBlogs] = useState([]);
-  const serverUrl ="http://localhost:8080"
+ 
 
   const checkLoginState = () => {
     try {
-      fetch('http://localhost:8080/auth/logged_in', {
+      fetch(`${serverUrl}/auth/logged_in`, {
         method: 'POST',
         credentials: 'include',
         headers:{
@@ -28,7 +29,7 @@ export const AuthContextProvider = ({ children }) => {
           setUser(body.user)
         }
        )
-        axios.get("http://localhost:8080/getblogs")
+        axios.get(`${serverUrl}/getblogs`)
         .then(res=>setBlogs(res.data))
         .catch(err=>console.log(err))
     } catch (err) {
@@ -37,7 +38,7 @@ export const AuthContextProvider = ({ children }) => {
   };
   const logOut=()=>{
     try {
-      fetch('http://localhost:8080/auth/logout', {
+      fetch(`${serverUrl}/auth/logout`, {
         method: 'POST',
         credentials: 'include',
         headers:{

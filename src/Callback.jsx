@@ -1,9 +1,8 @@
 import { useEffect,useContext,useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "./context";
+import { AuthContext, serverUrl } from "./context";
 import Cookies from 'universal-cookie';
 import axios from "axios";
-const serverUrl ="http://localhost:8080"
 const cookies = new Cookies();
 
 export const Callback = () => {

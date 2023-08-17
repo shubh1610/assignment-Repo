@@ -8,8 +8,6 @@ import axios from "axios";
 import "../styles.scss";
 import Profile from "./Profile"
 
-const serverUrl = "http://localhost:8080"
-
 export const Blogs = () => {
   const { user } = useParams()
   console.log(user,"user")
