@@ -14,6 +14,7 @@ export const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState();
 
   const checkLoginState = () => {
+    console.log(token,"token");
     try {
       fetch(serverUrl + "/auth/logged_in", {
         method: "POST",
