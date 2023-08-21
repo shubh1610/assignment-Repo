@@ -6,7 +6,7 @@ import axios from "axios";
 export const Callback = () => {
   const called = useRef(false);
   const [test, setTest] = useState(false);
-  const { checkLoginState, loggedIn } = useContext(AuthContext);
+  const { checkLoginState, loggedIn, setToken } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (test) {
@@ -14,12 +14,15 @@ export const Callback = () => {
         if (loggedIn === false) {
           try {
             called.current = true;
-            await axios.get(
-              serverUrl + "/auth/token" + window.location.search,
-              {
+            await axios
+              .get(serverUrl + "/auth/token" + window.location.search, {
                 withCredentials: true,
-              }
-            );
+              })
+              .then((res) => {
+                console.log(res);
+                setToken(res.data);
+              })
+              .catch((err) => console.log(err));
 
             checkLoginState();
             navigate("/");

@@ -11,6 +11,7 @@ export const AuthContextProvider = ({ children }) => {
   const [getProfileBlog, setGetProfileBlog] = useState(false);
   const [user, setUser] = useState();
   const [blogs, setBlogs] = useState([]);
+  const [token, setToken] = useState();
 
   const checkLoginState = () => {
     try {
@@ -21,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body:JSON.stringify({
-          token:'abc'
+          token:{token}
         })
       })
         .then((response) => response.json())
@@ -73,6 +74,7 @@ export const AuthContextProvider = ({ children }) => {
         getUserPost,
         setGetProfileBlog,
         getProfileBlog,
+        setToken,
       }}
     >
       {children}
