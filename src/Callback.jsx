@@ -19,7 +19,6 @@ export const Callback = () => {
                 withCredentials: true,
               })
               .then((res) => {
-                console.log(res);
                 setToken(res.data);
               })
               .catch((err) => console.log(err));
