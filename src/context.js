@@ -20,6 +20,9 @@ export const AuthContextProvider = ({ children }) => {
         headers: {
           "Content-Type": "application/json",
         },
+        body:{
+          token:'abc'
+        }
       })
         .then((response) => response.json())
         .then((body) => {
