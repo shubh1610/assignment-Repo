@@ -27,7 +27,7 @@ export const ShowBlog = () => {
     const authorName = user?.name;
     const newComment = { blogId, author, authorName, blogComment };
     axios
-      .post(`${serverUrl}/comment/addComment`, newComment)
+      .post(serverUrl + "/comment/addComment", newComment)
       .then((res) => {
         setComments(res.data);
       })
@@ -35,7 +35,7 @@ export const ShowBlog = () => {
   };
   useEffect(() => {
     axios
-      .get(`${serverUrl}/comment/getComments`, { params: { id: blogId } })
+      .get(serverUrl + "/comment/getComments", { params: { id: blogId } })
       .then((res) => {
         setComments(res.data);
       })

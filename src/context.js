@@ -3,6 +3,8 @@ import axios from "axios";
 
 export const AuthContext = createContext();
 export const serverUrl = "https://zany-jade-panther-fez.cyclic.cloud";
+ //export const serverUrl = "http://localhost:8080";
+
 
 export const AuthContextProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -12,7 +14,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const checkLoginState = () => {
     try {
-      fetch(`${serverUrl}/auth/logged_in`, {
+      fetch(serverUrl + "/auth/logged_in", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -25,7 +27,7 @@ export const AuthContextProvider = ({ children }) => {
           setUser(body.user);
         });
       axios
-        .get(`${serverUrl}/getblogs`)
+        .get(serverUrl + "/getblogs")
         .then((res) => setBlogs(res.data))
         .catch((err) => console.log(err));
     } catch (err) {
@@ -34,7 +36,7 @@ export const AuthContextProvider = ({ children }) => {
   };
   const logOut = () => {
     try {
-      fetch(`${serverUrl}/auth/logout`, {
+      fetch(serverUrl + "/auth/logout", {
         method: "POST",
         credentials: "include",
         headers: {

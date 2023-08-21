@@ -15,7 +15,7 @@ export const Callback = () => {
           try {
             called.current = true;
             await axios.get(
-              `${serverUrl}/auth/token${window.location.search}`,
+              serverUrl + "/auth/token${window.location.search}",
               {
                 withCredentials: true,
               }
@@ -35,5 +35,5 @@ export const Callback = () => {
       setTest(true);
     }
   }, [navigate, test]);
-  return <></>;
+  return <>HEllo</>;
 };

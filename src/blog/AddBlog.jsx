@@ -16,7 +16,7 @@ export const AddBlog = () => {
     const authorName = user.name;
     const newData = { title, author, authorName, content };
     axios
-      .post(`${serverUrl}/addblog`, newData)
+      .post(serverUrl + "/addblog", newData)
       .then((res) => console.log(res, "ress"))
       .catch((err) => console.log(err, "err"));
     navigate("/");
