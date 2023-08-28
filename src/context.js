@@ -1,10 +1,9 @@
 import { createContext, useState } from "react";
-import axios from "axios";
+//import axios from "axios";
 
 export const AuthContext = createContext();
 export const serverUrl = "https://zany-jade-panther-fez.cyclic.cloud";
- //export const serverUrl = "http://localhost:8080";
-
+//export const serverUrl = "http://localhost:8080";
 
 export const AuthContextProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -21,19 +20,25 @@ export const AuthContextProvider = ({ children }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body:JSON.stringify({
-          token:{token}
-        })
+        body: JSON.stringify({
+          token: { token },
+        }),
       })
         .then((response) => response.json())
         .then((body) => {
           setLoggedIn(body.loggedIn);
           setUser(body.user);
         });
-      axios
-        .get(serverUrl + "/getblogs")
-        .then((res) => setBlogs(res.data))
-        .catch((err) => console.log(err));
+      fetch(serverUrl + "/getblogs")
+        .then((response) => response.json())
+        .then((response) => {
+          setBlogs(response);
+        })
+        .catch((err) => console.log(err, "Error"));
+      // axios
+      //   .get(serverUrl + "/getblogs")
+      //   .then((res) => setBlogs(res.data))
+      //   .catch((err) => console.log(err));
     } catch (err) {
       console.log(err);
     }
@@ -57,10 +62,14 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
   const getUserPost = () => {
-    axios
-      .get(serverUrl + "/getblogsbyid", { params: { user: user.email } })
-      .then((res) => setBlogs(res.data))
-      .catch((err) => console.log(err));
+    fetch(serverUrl + "/getblogsbyid", { params: { user: user.email } })
+      .then((response) => response.json())
+      .then((response) => setBlogs(response.data))
+      .catch((err) => console.log(err, "Error"));
+    // axios
+    //   .get(serverUrl + "/getblogsbyid", { params: { user: user.email } })
+    //   .then((res) => setBlogs(res.data))
+    //   .catch((err) => console.log(err));
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+//import axios from "axios";
 import "../form.scss";
 import { AuthContext, serverUrl } from "../context";
 export const AddBlog = () => {
@@ -15,10 +15,25 @@ export const AddBlog = () => {
     const author = user.email;
     const authorName = user.name;
     const newData = { title, author, authorName, content };
-    axios
-      .post(serverUrl + "/addblog", newData)
-      .then((res) => console.log(res, "res"))
-      .catch((err) => console.log(err, "err"));
+    try {
+      fetch(serverUrl + "/addblog", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newData),
+      })
+        .then((response) => response.json())
+        .then((res) => console.log(res, "res"))
+        .catch((err) => console.log(err, "err"));
+    } catch (err) {
+      console.error(err);
+    }
+    // axios
+    //   .post(serverUrl + "/addblog", newData)
+    //   .then((res) => console.log(res, "res"))
+    //   .catch((err) => console.log(err, "err"));
     navigate("/");
   };
 

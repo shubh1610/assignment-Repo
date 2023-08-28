@@ -2,16 +2,20 @@ import "../styles.scss";
 import { PopupMenu } from "react-simple-widgets";
 import { AuthContext, serverUrl } from "../context";
 import { useContext } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 export default function Profile() {
   const { loggedIn, logOut, setGetProfileBlog, user, getUserPost } =
     useContext(AuthContext);
   const handleLogin = () => {
-    axios
-      .get(serverUrl + "/auth/google/url")
-      .then((res) => window.location.assign(res.data))
+    fetch(serverUrl + "/auth/google/url")
+      .then((response) => response.json())
+      .then((response) => window.location.assign(response.data))
       .catch((err) => console.log(err, "Error"));
+    // axios
+    //   .get(serverUrl + "/auth/google/url")
+    //   .then((res) => window.location.assign(res.data))
+    //   .catch((err) => console.log(err, "Error"));
   };
   return (
     <div id="app">

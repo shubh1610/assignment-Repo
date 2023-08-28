@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# Simple React JS Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Blog Application
 
-## Available Scripts
+## What is the use of this Repo
 
-In the project directory, you can run:
+This Project is a Simple ReactJS Project which demonstrates the following
 
-### `npm start`
+1. Creating a Component in React
+2. Making HTTP calls
+3. Communicating between parent-child and sibling components.
+4. Using Bootstrap along with React
+5. Using Basic Routing in React
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The project Template can be used to build bigger projects
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Prerequisites
 
-### `npm test`
+### Install Node JS
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Refer to https://nodejs.org/en/ to install nodejs
 
-### `npm run build`
+### Install create-react-app
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Install create-react-app npm package globally. This will help to easily run the project and also build the source files easily. Use the following command to install create-react-app
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install -g create-react-app
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Live Application URL
 
-### `npm run eject`
+The Application is deployed in https://assignment-repo-ashen.vercel.app/
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Click on the link to see the application
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Cloning and Running the Application in local
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Clone the project into local
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Install all the npm packages. Go into the project folder and type the following command to install all npm packages
 
-## Learn More
+```bash
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+In order to run the application Type the following command
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm start
+```
 
-### Code Splitting
+The Application Runs on **localhost:3000**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Application design
 
-### Analyzing the Bundle Size
+#### Components
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. **Blogs** Component : This Component displays a list of blogs. This Component gets the data from api which is created by node js.
 
-### Making a Progressive Web App
+2. **Add Blog** Component : This Component has the functionality to create a new blog. This Component sends newly created blog data to backend in order to be stored in database.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. **Show Blog** Component : This Component Displays the details of the selected blog. This Component gets its data with respect to its specific id by a get api call from backend.
 
-### Advanced Configuration
+4. **Profile** Component : This Component displays the user specific details. It has access to all the blogs created by user and also the logout feature.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### HTTP client
 
-### Deployment
+**axios** library is used to make HTTP Calls
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### URL
 
-### `npm run build` fails to minify
+The application has url / which renders the blogs component.
+The application has url /addblog which renders the add blogs component.
+The application has url /showblog which renders the show blogs component.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Resources
+
+**create-react-app** : The following link has all the commands that can be used with create-react-app
+https://github.com/facebook/create-react-app
+
+**ReactJS** : Refer to https://reactjs.org/ to understand the concepts of ReactJS
+
+**React Bootstrap** : Refer to https://react-bootstrap.github.io/getting-started/introduction/ to understand how to use React Bootstrap

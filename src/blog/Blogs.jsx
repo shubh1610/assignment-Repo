@@ -61,8 +61,7 @@ export const Blogs = () => {
           <Profile />
         </div>
       </div>
-
-      {blogs.map((blog) => {
+      {blogs?.map((blog) => {
         return (
           <>
             <div className="App">

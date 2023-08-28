@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+//import axios from "axios";
 import "./showBlog.scss";
 import { AuthContext, serverUrl } from "../context";
 import { Button } from "react-bootstrap";
@@ -26,20 +26,31 @@ export const ShowBlog = () => {
     const author = user?.email;
     const authorName = user?.name;
     const newComment = { blogId, author, authorName, blogComment };
-    axios
-      .post(serverUrl + "/comment/addComment", newComment)
-      .then((res) => {
-        setComments(res.data);
-      })
+    const options = {
+      method: "POST",
+      body: JSON.stringify(newComment),
+    };
+    fetch(serverUrl + "/comment/addComment", options)
+      .then((response) => response.json())
+      .then((response) => setComments(response.data))
+      // axios
+      //   .post(serverUrl + "/comment/addComment", newComment)
+      //   .then((res) => {
+      //     setComments(res.data);
+      //   })
       .catch((err) => console.log(err, "err"));
   };
   useEffect(() => {
-    axios
-      .get(serverUrl + "/comment/getComments", { params: { id: blogId } })
-      .then((res) => {
-        setComments(res.data);
-      })
-      .catch((err) => console.log(err, "err"));
+    fetch(serverUrl + "/comment/getComments", { params: { id: blogId } })
+      .then((response) => response.json())
+      .then((response) => setComments(response.data))
+      .catch((err) => console.log(err, "Error"));
+    // axios
+    //   .get(serverUrl + "/comment/getComments", { params: { id: blogId } })
+    //   .then((res) => {
+    //     setComments(res.data);
+    //   })
+    //   .catch((err) => console.log(err, "err"));
   }, []);
 
   useEffect(() => {
