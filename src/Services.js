@@ -101,9 +101,11 @@ export function addBlog(newData) {
   return response;
 }
 
-export function handle_auth() {
-  const response = fetch(serverUrl + "/auth/google/url").then((response) => {
-    return response;
-  });
+export async function handle_auth() {
+  const response = await fetch(serverUrl + "/auth/google/url").then(
+    (response) => {
+      return response;
+    }
+  );
   return response;
 }
