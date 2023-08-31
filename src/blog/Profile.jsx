@@ -14,7 +14,6 @@ export default function Profile() {
   const handleLogin = () => {
     handle_auth()
       .then((response) => {
-        console.log(response);
         window.location.assign(response.data);
       })
       .catch((err) => console.log(err, "Error"));
