@@ -13,7 +13,10 @@ export default function Profile() {
   const handleShow = () => setShow(true);
   const handleLogin = () => {
     handle_auth()
-      .then((response) => window.location.assign(response.data))
+      .then((response) => {
+        console.log(response);
+        window.location.assign(response.data);
+      })
       .catch((err) => console.log(err, "Error"));
   };
   return (
