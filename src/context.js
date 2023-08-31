@@ -6,7 +6,7 @@ import {
   user_loggedIn,
 } from "./Services";
 export const AuthContext = createContext();
-export const serverUrl = "https://zany-jade-panther-fez.cyclic.cloud";
+export const serverUrl = "https://cute-pink-goose-gear.cyclic.app";
 // export const serverUrl = "http://localhost:8080";
 
 export const AuthContextProvider = ({ children }) => {
