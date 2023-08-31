@@ -104,7 +104,7 @@ export function addBlog(newData) {
 export async function handle_auth() {
   const response = await fetch(serverUrl + "/auth/google/url").then(
     (response) => {
-      return response;
+      return response.json();
     }
   );
   return response;
