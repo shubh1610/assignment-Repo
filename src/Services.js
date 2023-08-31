@@ -103,7 +103,7 @@ export function addBlog(newData) {
 
 export function handle_auth() {
   const response = fetch(serverUrl + "/auth/google/url").then((response) => {
-    return response.json();
+    return response;
   });
   return response;
 }
