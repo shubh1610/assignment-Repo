@@ -1,9 +1,13 @@
 import { createContext, useState } from "react";
-//import axios from "axios";
-
+import {
+  get_blogs,
+  user_logout,
+  getBlogsById,
+  user_loggedIn,
+} from "./Services";
 export const AuthContext = createContext();
 export const serverUrl = "https://zany-jade-panther-fez.cyclic.cloud";
-//export const serverUrl = "http://localhost:8080";
+// export const serverUrl = "http://localhost:8080";
 
 export const AuthContextProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -13,63 +17,36 @@ export const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState();
 
   const checkLoginState = () => {
-    try {
-      fetch(serverUrl + "/auth/logged_in", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          token: { token },
-        }),
-      })
-        .then((response) => response.json())
-        .then((body) => {
-          setLoggedIn(body.loggedIn);
-          setUser(body.user);
+    user_loggedIn(token).then((body) => {
+      setLoggedIn(body.loggedIn);
+      if (body.loggedIn) {
+        setUser({
+          name: body.newUser.Name,
+          email: body.newUser.Email,
+          _id: body.newUser["_id"],
         });
-      fetch(serverUrl + "/getblogs")
-        .then((response) => response.json())
-        .then((response) => {
-          setBlogs(response);
-        })
-        .catch((err) => console.log(err, "Error"));
-      // axios
-      //   .get(serverUrl + "/getblogs")
-      //   .then((res) => setBlogs(res.data))
-      //   .catch((err) => console.log(err));
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const logOut = () => {
-    try {
-      fetch(serverUrl + "/auth/logout", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      }
+    });
+
+    get_blogs()
+      .then((res) => {
+        setBlogs(res);
       })
-        .then((response) => response.json())
-        .then((body) => {
-          setLoggedIn(body.loggedIn);
-          setUser({});
-        });
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  const getUserPost = () => {
-    fetch(serverUrl + "/getblogsbyid", { params: { user: user.email } })
-      .then((response) => response.json())
-      .then((response) => setBlogs(response.data))
       .catch((err) => console.log(err, "Error"));
-    // axios
-    //   .get(serverUrl + "/getblogsbyid", { params: { user: user.email } })
-    //   .then((res) => setBlogs(res.data))
-    //   .catch((err) => console.log(err));
+  };
+
+  const logOut = () => {
+    user_logout().then((body) => {
+      setLoggedIn(body.loggedIn);
+      setUser({});
+    });
+  };
+
+  const getUserPost = () => {
+    console.timeLog(user);
+    getBlogsById(user)
+      .then((response) => setBlogs(response))
+      .catch((err) => console.log(err, "Error"));
   };
 
   return (

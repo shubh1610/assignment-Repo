@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-//import axios from "axios";
+import { addBlog } from "../Services";
+import { useNavigate, Link } from "react-router-dom";
 import "../form.scss";
-import { AuthContext, serverUrl } from "../context";
+import { AuthContext } from "../context";
 export const AddBlog = () => {
   const { user } = useContext(AuthContext);
   const { register, watch, handleSubmit } = useForm();
@@ -11,34 +11,20 @@ export const AddBlog = () => {
   const navigate = useNavigate();
   const content = watch("blogContent");
 
-  const onSubmit = () => {
-    const author = user.email;
-    const authorName = user.name;
-    const newData = { title, author, authorName, content };
-    try {
-      fetch(serverUrl + "/addblog", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newData),
-      })
-        .then((response) => response.json())
-        .then((res) => console.log(res, "res"))
-        .catch((err) => console.log(err, "err"));
-    } catch (err) {
-      console.error(err);
+  const onSubmit = async () => {
+    const userId = user["_id"];
+    const newData = { title, userId, content };
+    const response = await addBlog(newData);
+    if (response === "error") {
+      alert("Empty blog can not be added");
+    } else {
+      navigate("/");
     }
-    // axios
-    //   .post(serverUrl + "/addblog", newData)
-    //   .then((res) => console.log(res, "res"))
-    //   .catch((err) => console.log(err, "err"));
-    navigate("/");
   };
 
   return (
     <div id="add-blog">
+      <Link to="/">Back to Home</Link>
       <div className="add-blog-text">
         <text>Create your own blog</text>
       </div>

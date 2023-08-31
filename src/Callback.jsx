@@ -1,7 +1,7 @@
 import { useEffect, useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext, serverUrl } from "./context";
-//import axios from "axios";
+import { get_authToken } from "./Services";
+import { AuthContext } from "./context";
 
 export const Callback = () => {
   const called = useRef(false);
@@ -14,10 +14,7 @@ export const Callback = () => {
         if (loggedIn === false) {
           try {
             called.current = true;
-            await fetch(serverUrl + "/auth/token" + window.location.search, {
-              withCredentials: true,
-            })
-              .then((res) => res.json())
+            await get_authToken()
               .then((res) => {
                 setToken(res.data);
               })
@@ -37,5 +34,5 @@ export const Callback = () => {
       setTest(true);
     }
   }, [navigate, test]);
-  return <>HEllo</>;
+  return <></>;
 };
